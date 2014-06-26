@@ -1,0 +1,42 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//Apache//DTD Log4j 1.2//EN"
+                                    "http://logging.apache.org/log4j/docs/api/org/apache/log4j/xml/log4j.dtd">
+<log4j:configuration>
+	<appender class="org.apache.log4j.ConsoleAppender" name="RootConsoleAppender">
+		<param name="Threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%c:%L]-[%p] %m%n" />
+		</layout>
+	</appender>
+	<appender class="org.apache.log4j.RollingFileAppender" name="FileAppender">
+		<param name="Threshold" value="debug" />
+		<param name="File" value="${symbol_dollar}{log.dir}/mam-ws.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p [%t] %40.40c:%4L - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="${package}">
+		<level value="debug" />
+	</logger>
+	
+	<logger name="org.springframework.data">
+		<level value="debug" />
+	</logger>
+	
+	<logger name="org.apache.cxf">
+		<level value="info" />
+	</logger>
+
+	<root>
+		<level value="info" />
+		<appender-ref ref="RootConsoleAppender" />
+		<appender-ref ref="FileAppender" />
+	</root>
+
+</log4j:configuration>

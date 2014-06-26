@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+	  <parent>
+	    <groupId>${groupId}</groupId>
+	    <artifactId>${rootArtifactId}</artifactId>
+	    <version>${version}</version>
+	  </parent>
+
+  <artifactId>${rootArtifactId}-ws-deploy</artifactId>
+  <packaging>war</packaging>
+  <name>${rootArtifactId} WS/Web Deployment Module</name>
+	
+    <build>
+    	<finalName>${rootArtifactId}</finalName>
+    </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <build>
+
+            </build>
+        </profile>
+        <profile>
+            <id>test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+
+            </build>
+        </profile>
+        <profile>
+            <id>product</id>
+            <build>
+
+            </build>
+        </profile>
+    </profiles>
+  <dependencies>
+
+	    <dependency>
+	    	<groupId>${groupId}</groupId>
+	    	<artifactId>${rootArtifactId}-application-impl</artifactId>
+	    	<version>${version}</version>
+	    </dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<!-- spring framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<!-- json provider for jax-rs -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+		</dependency>	
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+		</dependency>		
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+		</dependency>
+				<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+		</dependency>
+      <dependency>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+          <version>1.2.15</version>
+      </dependency>
+  </dependencies>
+
+</project>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>${groupId}</groupId>
+	<version>${version}</version>
+	<artifactId>${artifactId}</artifactId>
+	
+	<packaging>pom</packaging>
+	<name>${artifactId} parent pom</name>
+	
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		<plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+	<dependencyManagement>
+		<dependencies>
+			<!-- spring framework -->
+	        <dependency>
+	            <groupId>org.springframework</groupId>
+	            <artifactId>spring-framework-bom</artifactId>
+	            <version>${spring.framework.version}</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	        
+			<!-- spring data mongodb -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-mongodb</artifactId>
+				<version>${org.springframework.data.mongodb}</version>
+			</dependency>
+			
+			<!-- spring data redis -->
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>${org.springframework.data.redis}</version>
+			</dependency>
+			
+			<!-- CXF -->
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-frontend-jaxws</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>			
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-transports-http</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>
+
+			<!-- mysql driver -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.12</version>
+			</dependency>
+			
+			<!-- apache dbcp 1.4 (jdk1.6) for datasource-->
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>1.4</version>
+			</dependency>
+			
+			<!--jackson json provider for jax-rs  -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.jaxrs</groupId>
+				<artifactId>jackson-jaxrs-json-provider</artifactId>
+				<version>2.3.3</version>
+			</dependency>			
+			
+			<!-- servlet & JSP -->
+	        <!-- <dependency>
+	            <groupId>javax.servlet.jsp</groupId>
+	            <artifactId>jsp-api</artifactId>
+	            <version>${jsp.version}</version>
+	            <scope>provided</scope>
+	        </dependency>-->
+	        <dependency>
+	            <groupId>javax.servlet</groupId>
+	            <artifactId>servlet-api</artifactId>
+	            <version>${servlet.version}</version>
+	            <scope>provided</scope>
+	        </dependency> 
+	        
+	        <!-- Hibernate -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<!-- Use Javassist as Hibernate's bytecode provider -->
+			<dependency>
+				<groupId>javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>3.12.1.GA</version>
+			</dependency>
+			<!-- Enable EhCache support -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-ehcache</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<!-- Upgrade version of EhCache used -->
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache-core</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
+			
+			<!-- jax-ws-rs -->
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+				<version>2.0-m10</version>
+			</dependency> 
+			
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>1</version>
+			</dependency>
+			
+
+			
+			<!-- lenovo AD tools -->
+	  		<!-- <dependency>
+	  			<groupId>com.lenovo</groupId>
+	  			<artifactId>lenovo-adtool</artifactId>
+	  			<version>1.0</version>
+	  		</dependency>	 -->	
+	  		
+			<!-- <dependency>
+			    <groupId>com.lenovo.mobility.common</groupId>
+				<artifactId>common-mongodb</artifactId>
+				<version>${version}</version>
+			</dependency> -->	
+		</dependencies>
+	</dependencyManagement>
+	
+	<profiles>
+        <!-- ================= Development Env Settings Profile ================= -->
+        <!-- Use "-P dev" when you want to use the settings in this profile -->
+        <!-- =============================================================== -->	
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+
+			</build>
+			<properties>
+				<!-- Application setting -->
+				<db.name>qinqin</db.name>
+							
+			    <!-- Mongo db configuration for dev env-->
+			    <mongo.host>10.99.60.20</mongo.host>
+			    <mongo.port>27017</mongo.port>
+			    <mongo.connections-per-host>8</mongo.connections-per-host>
+			    <mongo.threads-allowed-to-block-for-connection-multiplier>4</mongo.threads-allowed-to-block-for-connection-multiplier>
+			    <mongo.connect-timeout>5000</mongo.connect-timeout>
+			    <mongo.max-wait-time>5500</mongo.max-wait-time>
+				<mongo.auto-connect-retry>true</mongo.auto-connect-retry>
+				<mongo.socket-keep-alive>true</mongo.socket-keep-alive>
+				<mongo.socket-timeout>5500</mongo.socket-timeout>
+				<mongo.slave-ok>true</mongo.slave-ok>
+				<mongo.write-number>1</mongo.write-number>
+				<mongo.write-timeout>0</mongo.write-timeout>
+				<mongo.write-fsync>true</mongo.write-fsync>
+				<mongo.defaultDatabase>lenovomeap</mongo.defaultDatabase>
+				
+				<!-- redis settings -->
+				<redis.host>10.99.60.20</redis.host>
+				<redis.port>6379</redis.port>
+				<redis.pass></redis.pass>
+				<redis.maxIdle>200</redis.maxIdle>
+				<redis.maxActive>1024</redis.maxActive>
+				<redis.maxWait>1000</redis.maxWait>
+				<redis.testOnBorrow>true</redis.testOnBorrow>
+				
+				<!-- datasource settings -->
+				<!-- <jdbc.groupId>mysql</jdbc.groupId>
+		        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+		        <jdbc.version>5.1.27</jdbc.version>
+		        <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+		        <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
+		        <jdbc.username>root</jdbc.username>
+		        <jdbc.password></jdbc.password>
+		        <jdbc.validationQuery>SELECT 1 + 1</jdbc.validationQuery> -->	
+		        
+		        <hibernate.dialect>org.hibernate.dialect.DerbyTenSevenDialect</hibernate.dialect>
+                <jdbc.groupId>org.apache.derby</jdbc.groupId>
+                <jdbc.artifactId>derbyclient</jdbc.artifactId>
+                <jdbc.version>10.9.1.0</jdbc.version>
+                <jdbc.driverClassName>org.apache.derby.jdbc.ClientDriver</jdbc.driverClassName>
+                <jdbc.url>jdbc:derby://localhost/${db.name};create=true</jdbc.url>
+                <jdbc.username>app</jdbc.username>
+                <jdbc.password>app</jdbc.password>
+                <jdbc.validationQuery>values 1</jdbc.validationQuery>		        			
+
+			</properties>			
+		</profile>
+        <!-- ================= Test Env Settings Profile ================= -->
+        <!-- Use "-P test" when you want to use the settings in this profile -->
+        <!-- =============================================================== -->		
+		<profile>
+			<id>test</id>
+			<build>
+
+			</build>
+			<properties>
+				<!-- Application setting -->
+				<db.name>testproject</db.name>
+			    <!-- Mongo db configuration for test env -->
+			    <mongo.host>10.99.60.20</mongo.host>
+			    <mongo.port>27017</mongo.port>
+			    <mongo.connections-per-host>8</mongo.connections-per-host>
+			    <mongo.threads-allowed-to-block-for-connection-multiplier>4</mongo.threads-allowed-to-block-for-connection-multiplier>
+			    <mongo.connect-timeout>5000</mongo.connect-timeout>
+			    <mongo.max-wait-time>5500</mongo.max-wait-time>
+				<mongo.auto-connect-retry>true</mongo.auto-connect-retry>
+				<mongo.socket-keep-alive>true</mongo.socket-keep-alive>
+				<mongo.socket-timeout>5500</mongo.socket-timeout>
+				<mongo.slave-ok>true</mongo.slave-ok>
+				<mongo.write-number>1</mongo.write-number>
+				<mongo.write-timeout>0</mongo.write-timeout>
+				<mongo.write-fsync>true</mongo.write-fsync>
+				<mongo.defaultDatabase>lenovomeap</mongo.defaultDatabase>
+				
+				<!-- redis settings -->
+				<redis.host>10.99.60.20</redis.host>
+				<redis.port>6379</redis.port>
+				<redis.pass></redis.pass>
+				<redis.maxIdle>200</redis.maxIdle>
+				<redis.maxActive>1024</redis.maxActive>
+				<redis.maxWait>1000</redis.maxWait>
+				<redis.testOnBorrow>true</redis.testOnBorrow>		
+				
+				<!-- datasource settings -->
+				<!-- <jdbc.groupId>mysql</jdbc.groupId>
+		        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+		        <jdbc.version>5.1.27</jdbc.version>
+		        <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+		        <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
+		        <jdbc.username>root</jdbc.username>
+		        <jdbc.password></jdbc.password>
+		        <jdbc.validationQuery>SELECT 1 + 1</jdbc.validationQuery> -->		
+                <jdbc.groupId>org.apache.derby</jdbc.groupId>
+                <jdbc.artifactId>derbyclient</jdbc.artifactId>
+                <jdbc.version>10.10.2.0</jdbc.version>
+                <jdbc.driverClassName>org.apache.derby.jdbc.ClientDriver</jdbc.driverClassName>
+                <jdbc.url>jdbc:derby://localhost/${db.name};create=true</jdbc.url>
+                <jdbc.username>any</jdbc.username>
+                <jdbc.password>value</jdbc.password>
+                <jdbc.validationQuery>SELECT 1 + 1</jdbc.validationQuery>		        					
+			</properties>			
+		</profile>
+        <!-- ================= Production Settings Profile ================= -->
+        <!-- Use "-P product" when you want to use the settings in this profile -->
+        <!-- =============================================================== -->		
+		<profile>
+			<id>product</id>
+			<build>
+
+			</build>
+			<properties>
+				<!-- Application setting -->
+				<db.name>testproject</db.name>
+							
+			    <!-- Mongo db configuration for pro evn -->
+			    <mongo.host>10.99.60.247</mongo.host>
+			    <mongo.port>27017</mongo.port>
+			    <mongo.connections-per-host>8</mongo.connections-per-host>
+			    <mongo.threads-allowed-to-block-for-connection-multiplier>4</mongo.threads-allowed-to-block-for-connection-multiplier>
+			    <mongo.connect-timeout>5000</mongo.connect-timeout>
+			    <mongo.max-wait-time>5500</mongo.max-wait-time>
+				<mongo.auto-connect-retry>true</mongo.auto-connect-retry>
+				<mongo.socket-keep-alive>true</mongo.socket-keep-alive>
+				<mongo.socket-timeout>5500</mongo.socket-timeout>
+				<mongo.slave-ok>true</mongo.slave-ok>
+				<mongo.write-number>1</mongo.write-number>
+				<mongo.write-timeout>0</mongo.write-timeout>
+				<mongo.write-fsync>true</mongo.write-fsync>
+				<mongo.defaultDatabase>lenovomeap</mongo.defaultDatabase>
+				
+				<!-- redis settings -->
+				<redis.host>10.99.60.246</redis.host>
+				<redis.port>6379</redis.port>
+				<redis.pass></redis.pass>
+				<redis.maxIdle>200</redis.maxIdle>
+				<redis.maxActive>1024</redis.maxActive>
+				<redis.maxWait>1000</redis.maxWait>
+				<redis.testOnBorrow>true</redis.testOnBorrow>		
+				
+				<!-- datasource settings -->
+				<jdbc.groupId>mysql</jdbc.groupId>
+		        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+		        <jdbc.version>5.1.27</jdbc.version>
+		        <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+		        <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
+		        <jdbc.username>root</jdbc.username>
+		        <jdbc.validationQuery>SELECT 1 + 1</jdbc.validationQuery>							
+			</properties>			
+		</profile>
+	</profiles>	
+	
+	<properties>
+		<!-- Application settings -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<db.name>addtendanceInfo</db.name>
+		
+		<!-- dependency version -->
+		<spring.framework.version>3.2.8.RELEASE</spring.framework.version>
+		<org.springframework.data.mongodb>1.4.2.RELEASE</org.springframework.data.mongodb>
+		<org.springframework.data.redis>1.3.0.RELEASE</org.springframework.data.redis>
+		<cxf.version>2.7.11</cxf.version>
+		<servlet.version>2.5</servlet.version>
+		
+		<hibernate.version>4.2.12.Final</hibernate.version>
+		<ehcache.version>2.6.9</ehcache.version>
+		
+        <!-- Database settings -->
+        <!-- <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+        <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
+        <jdbc.username>root</jdbc.username>
+        <jdbc.password></jdbc.password> -->
+        
+	</properties>
+
+</project>

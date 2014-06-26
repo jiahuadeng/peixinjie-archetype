@@ -1,0 +1,12 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.1">
+
+  <persistence-unit name="myUnit" transaction-type="RESOURCE_LOCAL">
+  	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+  	<!-- <class>${package}.domain.User</class>-->
+  </persistence-unit> 
+	
+</persistence>

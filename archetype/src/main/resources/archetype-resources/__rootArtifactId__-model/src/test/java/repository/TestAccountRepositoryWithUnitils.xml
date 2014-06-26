@@ -1,0 +1,8 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <account userName="dengjh" status="a" password="ddd" id="1" createDate="2014-06-23 18:01:52.336" email="dengjh@lenovo.com" nickName="jerry" age="20"/>
+    <account userName="chenxi" status="a" password="ddd" id="2" createDate="2014-06-24 18:01:52.336" email="chenxi@lenovo.com" nickName="lou" age="30"/>
+</dataset>

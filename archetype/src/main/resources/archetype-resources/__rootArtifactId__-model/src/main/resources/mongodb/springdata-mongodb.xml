@@ -1,0 +1,46 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:repository="http://www.springframework.org/schema/data/repository"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/data/repository
+          http://www.springframework.org/schema/data/repository/spring-repository.xsd
+          
+">
+    <context:property-placeholder location="classpath*:/**/*.properties" />
+	
+    <mongo:mongo host="${symbol_dollar}{mongo.host}" port="${symbol_dollar}{mongo.port}">
+        <mongo:options
+                connections-per-host="${symbol_dollar}{mongo.connections-per-host}"
+                threads-allowed-to-block-for-connection-multiplier="${symbol_dollar}{mongo.threads-allowed-to-block-for-connection-multiplier}"
+                connect-timeout="${symbol_dollar}{mongo.connect-timeout}"
+                max-wait-time="${symbol_dollar}{mongo.max-wait-time}"
+                auto-connect-retry="${symbol_dollar}{mongo.auto-connect-retry}"
+                socket-keep-alive="${symbol_dollar}{mongo.socket-keep-alive}"
+                socket-timeout="${symbol_dollar}{mongo.socket-timeout}"
+                slave-ok="${symbol_dollar}{mongo.slave-ok}"
+                write-number="${symbol_dollar}{mongo.write-number}"
+                write-timeout="${symbol_dollar}{mongo.write-timeout}"
+                write-fsync="${symbol_dollar}{mongo.write-fsync}"/>
+    </mongo:mongo>
+
+    <mongo:db-factory dbname="${symbol_dollar}{mongo.defaultDatabase}" mongo-ref="mongo"/>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+	
+    <mongo:repositories base-package="${package}.repository.mongodb" />
+
+</beans>
